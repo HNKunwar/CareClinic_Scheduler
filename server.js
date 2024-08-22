@@ -5,6 +5,12 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
+    const credentialsPath = path.join(process.cwd(), 'google-credentials.json');
+    fs.writeFileSync(credentialsPath, Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString());
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = credentialsPath;
+  }
+  
 const app = express();
 const port = process.env.PORT || 3000;
 
