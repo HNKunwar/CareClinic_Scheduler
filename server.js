@@ -29,8 +29,22 @@ let sheets;
 
 try {
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
-    const credentials = JSON.parse(Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString());
-    serviceAccount = credentials;
+    let decodedCredentials = Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString();
+    console.log('Decoded credentials:', decodedCredentials);
+    
+    // Check if the decoded string starts with 'account",'
+    if (decodedCredentials.startsWith('account",')) {
+      decodedCredentials = '{' + decodedCredentials;
+    }
+    
+    // Check if the JSON is still invalid (missing "type" field)
+    if (!decodedCredentials.includes('"type":')) {
+      decodedCredentials = '{"type": "service_' + decodedCredentials;
+    }
+    
+    console.log('Processed credentials:', decodedCredentials);
+    
+    serviceAccount = JSON.parse(decodedCredentials);
   } else {
     throw new Error('GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set');
   }
@@ -43,8 +57,10 @@ try {
   );
 
   sheets = google.sheets({ version: 'v4', auth: jwtClient });
+  console.log('Google Sheets client initialized successfully');
 } catch (error) {
   logMessage(`Error initializing Google Sheets client: ${error.message}`);
+  console.error('Full error:', error);
   process.exit(1);
 }
 
