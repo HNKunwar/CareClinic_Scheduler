@@ -17,7 +17,7 @@
 
         #app {
             max-width: 1000px;
-            margin: 0 auto; /* Horizontally centers the container */
+            margin: 0 auto;
             background-color: white;
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -33,8 +33,7 @@
         }
         h1, h2 {
             color: #333;
-            text-align: center;
-            
+            margin: 0 auto;
         }
         #role-selection {
             margin-bottom: 20px;
@@ -62,7 +61,7 @@
         form {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Left-align the form elements */
+            align-items: flex-start;
         }
         label, input, button {
             margin-bottom: 10px;
@@ -77,6 +76,9 @@
         button:hover {
             background-color: #45a049;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -89,16 +91,6 @@
             <label for="role">Select your role:</label>
             <select id="role">
                 <option value="">--Please choose a role--</option>
-                <option value="provider">Provider</option>
-                <option value="specialist">Specialist</option>
-                <option value="dentist">Dentist</option>
-                <option value="dental-assistant">Dental Assistant</option>
-                <option value="dental-nurse">Dental Nurse</option>
-                <option value="nurse">Nurse</option>
-                <option value="pharmacist">Pharmacist</option>
-                <option value="pharmacy-assistant">Pharmacy Assistant</option>
-                <option value="receptionist">Receptionist</option>
-                <option value="nutritionist">Nutritionist</option>
             </select>
         </div>
         <div id="calendar"></div>
@@ -114,6 +106,23 @@
             </form>
         </div>
     </div>
+
+    <button id="admin-login-button">Admin Login</button>
+
+    <div id="admin-login-form" class="hidden">
+        <input type="password" id="admin-password" placeholder="Admin Password">
+        <button id="admin-submit">Login</button>
+    </div>
+
+    <div id="admin-panel" class="hidden">
+        <h2>Admin Panel</h2>
+        <form id="volunteer-lookup-form">
+            <input type="text" id="lookup-input" placeholder="Search by name or phone">
+            <button type="submit">Search</button>
+        </form>
+        <div id="lookup-results"></div>
+    </div>
+
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="app.js"></script>
 </body>
