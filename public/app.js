@@ -61,6 +61,22 @@ function initializeCalendar() {
     calendar.render();
 }
 
+async function testAPI() {
+    try {
+      const response = await fetch('/api/test');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('API test response:', data);
+    } catch (error) {
+      console.error('API test failed:', error);
+    }
+  }
+  
+  // Call this function before loadAllSheetData
+  testAPI();
+  
 async function loadAllSheetData() {
     try {
         logger.log('Loading all sheet data...');

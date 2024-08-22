@@ -10,7 +10,7 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
     fs.writeFileSync(credentialsPath, Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString());
     process.env.GOOGLE_APPLICATION_CREDENTIALS = credentialsPath;
   }
-  
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -62,12 +62,17 @@ const jwtClient = new google.auth.JWT(
 const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
 app.get('/api/sheet-data', async (req, res) => {
+    console.log('Received request for /api/sheet-data');
     try {
+      console.log('Attempting to fetch spreadsheet data...');
+      console.log('Using SPREADSHEET_ID:', process.env.SPREADSHEET_ID);
+      
       const response = await sheets.spreadsheets.get({
         spreadsheetId: process.env.SPREADSHEET_ID,
         includeGridData: true
       });
       
+      console.log('Successfully fetched spreadsheet data');
       // Log the raw response
       logMessage('Raw Google Sheets response: ' + JSON.stringify(response.data, null, 2));
   
@@ -82,10 +87,10 @@ app.get('/api/sheet-data', async (req, res) => {
   
       res.json(processedData);
     } catch (error) {
-      logMessage('Error fetching sheet data: ' + error);
-      res.status(500).json({ error: 'Failed to fetch sheet data' });
-    }
-  });
+        console.error('Error in /api/sheet-data:', error);
+        res.status(500).json({ error: 'Failed to fetch sheet data', details: error.message, stack: error.stack });
+      }
+    });
 
 app.get('/api/sheet-data/:sheetName', async (req, res) => {
   try {
@@ -208,3 +213,9 @@ function columnToLetter(column) {
 app.listen(port, () => {
   logMessage(`Server running on http://localhost:${port}`);
 });
+
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'API is working' });
+  });
+
+  console.log('Environment variables:', Object.keys(process.env));
