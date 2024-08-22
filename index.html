@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Signup Form</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        #app {
+            max-width: 1000px;
+            margin: 0 auto; /* Horizontally centers the container */
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+            
+        }
+        #role-selection {
+            margin-bottom: 20px;
+        }
+        #calendar {
+            margin-bottom: 20px;
+        }
+        .fc-day-tue:not(.fc-day-disabled),
+        .fc-day-wed:not(.fc-day-disabled),
+        .fc-day-thu:not(.fc-day-disabled) {
+            background-color: #e0f7fa;
+            cursor: pointer;
+        }
+        .fc-day-disabled {
+            background-color: #ffcdd2;
+            cursor: not-allowed;
+        }
+        .fc-day-selected {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+        #signup-form {
+            margin-top: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Left-align the form elements */
+        }
+        label, input, button {
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="logo-container">
+            <img src="logo.png" alt="Care Clinic Logo" class="logo">
+        </div>
+        <h1>Care Clinic Signup Form</h1>
+        <div id="role-selection">
+            <label for="role">Select your role:</label>
+            <select id="role">
+                <option value="">--Please choose a role--</option>
+                <option value="provider">Provider</option>
+                <option value="specialist">Specialist</option>
+                <option value="dentist">Dentist</option>
+                <option value="dental-assistant">Dental Assistant</option>
+                <option value="dental-nurse">Dental Nurse</option>
+                <option value="nurse">Nurse</option>
+                <option value="pharmacist">Pharmacist</option>
+                <option value="pharmacy-assistant">Pharmacy Assistant</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="nutritionist">Nutritionist</option>
+            </select>
+        </div>
+        <div id="calendar"></div>
+        <div id="signup-form" style="display: none;">
+            <h2>Sign up for selected dates</h2>
+            <form id="volunteer-form">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" required>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" required>
+                <div id="selected-dates"></div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
