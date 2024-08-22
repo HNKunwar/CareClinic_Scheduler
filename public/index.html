@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Clinic Scheduler</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hidden {
+            display: none;
+        }
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        input, select, button {
+            display: block; 
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #admin-login-button {
+            display: block; 
+            width: 50%;
+            margin: 10px auto;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #admin-password, #admin-submit, #role {
+            width: 50%;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #logo {
+            display: block;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+        .fc-header-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fc-button-group {
+            display: flex;
+        }
+        #selected-dates-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.png" id="logo" alt="Care Clinic Logo">
+    <h1>Care Clinic Scheduler</h1>
+    
+    <div id="calendar"></div>
+    
+    <form id="volunteer-form">
+        <select id="role" required>
+            <option value="">Select Role</option>
+            <!-- Additional Options will be populated by JavaScript -->
+        </select>
+        <input type="text" id="full-name" placeholder="Full Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <div id="selected-dates" style="display: none;"></div>
+        <ul id="selected-dates-list" style="display: none;"></ul>
+        <button type="submit" id="signup-button" style="display: none;">Sign Up</button>
+    </form>
+
+    <button id="admin-login-button">Admin Login</button>
+
+    <div id="admin-login-form" class="hidden">
+        <form id="admin-login-form-element">
+            <input type="password" id="admin-password" placeholder="Admin Password" autocomplete="new-password">
+            <button type="button" id="admin-submit">Login</button>
+        </form>
+    </div>
+
+    <div id="admin-panel" class="hidden">
+        <h2>Admin Panel</h2>
+        <form id="volunteer-lookup-form">
+            <input type="text" id="lookup-input" placeholder="Search by name or phone">
+            <button type="submit">Search</button>
+        </form>
+        <div id="lookup-results"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
