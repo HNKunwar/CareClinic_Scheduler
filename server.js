@@ -28,25 +28,11 @@ let jwtClient;
 let sheets;
 
 try {
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
-    let decodedCredentials = Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString();
-    console.log('Decoded credentials:', decodedCredentials);
-    
-    // Check if the decoded string starts with 'account",'
-    if (decodedCredentials.startsWith('account",')) {
-      decodedCredentials = '{' + decodedCredentials;
-    }
-    
-    // Check if the JSON is still invalid (missing "type" field)
-    if (!decodedCredentials.includes('"type":')) {
-      decodedCredentials = '{"type": "service_' + decodedCredentials;
-    }
-    
-    console.log('Processed credentials:', decodedCredentials);
-    
-    serviceAccount = JSON.parse(decodedCredentials);
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    console.log('Parsed Google credentials:', serviceAccount);
   } else {
-    throw new Error('GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set');
+    throw new Error('GOOGLE_APPLICATION_CREDENTIALS is not set');
   }
 
   jwtClient = new google.auth.JWT(
