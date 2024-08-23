@@ -48,6 +48,11 @@ function initializeCalendar() {
         selectConstraint: {
             daysOfWeek: [0, 1, 2, 3, 4, 5, 6]
         },
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'today'
+        },
         select: function(info) {
             handleDateSelection(info.start);
         },
@@ -76,7 +81,7 @@ async function testAPI() {
   
   // Call this function before loadAllSheetData
   testAPI();
-  
+
 async function loadAllSheetData() {
     try {
         logger.log('Loading all sheet data...');
